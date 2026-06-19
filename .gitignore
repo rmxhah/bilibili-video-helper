@@ -1,0 +1,14 @@
+# 个人信息
+config.json
+
+# 下载输出
+output/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# 临时文件
+*.log
+*.tmp
