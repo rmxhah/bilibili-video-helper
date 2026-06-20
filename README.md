@@ -1,52 +1,61 @@
-# B站视频助手
+# Bilibili Download Helper
 
-> B站视频/字幕/音频下载工具，扫码登录即用，支持4K全画质
+> B站/YouTube/抖音 多平台视频下载工具 | 无水印 | 字幕提取 | 扫码登录 | 多线程加速
+
+**关键词：** B站视频下载, Bilibili下载, 哔哩哔哩视频提取, 抖音无水印下载, YouTube视频下载, 字幕提取, 扫码登录, 多平台视频下载器, 4K视频下载, B站字幕下载, 视频去水印
 
 ## 功能
 
-- 🔐 **扫码登录** — 打开程序→手机B站App扫码→完成，无需手动配置
+- 🔐 **B站扫码登录** — 手机B站App扫码即用，无需手动配置Cookie
 - 📝 **字幕下载** — SRT + 纯文本，原生CC字幕优先，AI字幕兜底
-- 🎵 **音频下载** — 直取DASH最高码率音频流 (.m4a)
-- 🎬 **视频下载** — DASH全画质可选 (4K/1080P/720P...)，内置ffmpeg合并
-- ⚡ **多线程加速** — 4线程分块并行下载
+- 🎵 **音频下载** — 独立音频流提取
+- 🎬 **视频下载** — 全画质可选(4K/1080P/720P...)，DASH+ffmpeg合并
+- ⚡ **多线程加速** — 4线程分块并行下载，实时进度显示
+- 🎯 **三平台支持** — B站(bilibili) / YouTube / 抖音(Douyin)
+- 🚫 **无水印下载** — 抖音绕过水印CDN，YouTube直取原始流
+- 🔍 **代理自动检测** — YouTube自动读取系统代理设置
+- 📊 **画质选择+大小预览** — 下载前查看各画质预估文件大小
 
 ## 快速开始
 
-1. 下载 `B站视频助手.zip` 并解压
-2. 双击 `B站视频助手.exe`
-3. 点击「扫码登录」→ 手机B站App扫码
-4. 粘贴B站视频链接，选择画质和输出类型
+1. 下载 `B站视频下载助手发布版.zip` 并解压
+2. 双击 `BiliHelper.exe`
+3. B站：点击「扫码登录」→ 手机B站App扫码
+4. 粘贴视频链接，选择画质和输出类型
 5. 点击「开始处理」
 
 ## 系统要求
 
 - Windows 10/11 64位
-- 无需安装任何依赖
+- 无需安装Python或任何依赖
+- YouTube需代理（支持HTTP代理/TUN模式，自动检测系统代理）
 
-## 工作原理
+## ⚠️ Windows安全中心提示
 
-- 通过B站API获取视频/字幕数据，需要登录态Cookie
-- Cookie仅存储在本地 `config.json`，不上传任何服务器
-- 视频下载使用DASH协议 + ffmpeg本地合并，支持全部画质
+本程序为开源Python打包，**不含任何恶意代码**。由于未购买商业代码签名证书，Windows Defender可能误报。
+
+解决方法：打开 **Windows安全中心** → **病毒和威胁防护** → **排除项** → 添加程序文件夹。
+
+**为何误报？** PyInstaller打包的EXE会被启发式扫描误判；未签名的EXE默认被SmartScreen标记。已通过禁用UPX压缩、添加版本元数据降低误报率。
 
 ## 隐私说明
 
-- 所有数据仅存储在本地，无任何网络上传
-- 扫码登录获取的Cookie保存在 `config.json`，删除此文件即可清除登录
+- B站Cookie仅存储在本地 `config.json`，不上传任何服务器
+- `config.json` 是程序首次运行后自动生成的
 - 分享给他人前请删除 `config.json`
 
-## 构建
+## 文件结构
 
-```bash
-pip install -r requirements.txt
-pyinstaller --onedir --name "B站视频助手" \
-  --hidden-import bilibili_api --hidden-import bilibili_api.login_v2 \
-  --collect-all bilibili_api --noconfirm bilibili_tool_v2.py
+```
+├── BiliHelper.exe    ← 主程序
+├── _internal/        ← Python运行时(勿删)
+├── ffmpeg/           ← 视频合并工具
+└── output/           ← 默认下载目录
 ```
 
-依赖: `bilibili-api-python`, `requests`, `httpx`, `qrcode`, `Pillow`, `yt-dlp`
+## 联系作者
 
-ffmpeg需单独放入 `ffmpeg/` 目录。
+如需增添功能请联系作者 **QQ：1604993383**
 
 ## License
 
